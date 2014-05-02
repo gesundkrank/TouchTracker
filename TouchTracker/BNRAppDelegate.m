@@ -9,6 +9,12 @@
 #import "BNRAppDelegate.h"
 #import "BNRDrawViewController.h"
 
+@interface BNRAppDelegate ()
+
+@property (nonatomic, strong) BNRDrawViewController *dvc;
+
+@end
+
 @implementation BNRAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -16,8 +22,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    BNRDrawViewController *dvc = [[BNRDrawViewController alloc] init];
-    self.window.rootViewController = dvc;
+    self.dvc = [[BNRDrawViewController alloc] init];
+    self.window.rootViewController = self.dvc;
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
@@ -34,6 +40,7 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [self.dvc saveData];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

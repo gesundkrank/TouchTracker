@@ -121,11 +121,11 @@
 				3D52EF331911C8FB0067DA1D /* Images.xcassets */,
 				3D52EF281911C8FB0067DA1D /* Supporting Files */,
 				3DCCCCF01912445C00DCE507 /* BNRLine.h */,
+				3DCCCCF11912445C00DCE507 /* BNRLine.m */,
 				3DCCCCF3191244B300DCE507 /* BNRDrawView.h */,
 				3DCCCCF4191244B300DCE507 /* BNRDrawView.m */,
 				3DCCCCF6191244D400DCE507 /* BNRDrawViewController.h */,
 				3DCCCCF7191244D400DCE507 /* BNRDrawViewController.m */,
-				3DCCCCF11912445C00DCE507 /* BNRLine.m */,
 			);
 			path = TouchTracker;
 			sourceTree = "<group>";
