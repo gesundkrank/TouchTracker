@@ -10,6 +10,16 @@
 
 @implementation BNRLine
 
+- (CGFloat)angle
+{
+    CGPoint normal = CGPointMake(self.begin.x - self.end.x,
+                                 self.begin.y - self.end.y);
+    
+    CGFloat radians = atan2(normal.x, normal.y);
+    
+    return (radians * (180. / M_PI) + 180) / 360;
+}
+
 -  (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super init];

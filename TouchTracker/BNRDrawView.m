@@ -44,8 +44,10 @@
 - (void)drawRect:(CGRect)rect
 {
     //Draw finished lines in black
-    [[UIColor blackColor] set];
     for (BNRLine *line in self.finishedLines) {
+        CGFloat angle = line.angle;
+        NSLog(@"%1.2f", angle);
+        [[[UIColor alloc] initWithHue:line.angle saturation:1 brightness:1 alpha:1] set];
         [self strokeLine:line];
     }
     
