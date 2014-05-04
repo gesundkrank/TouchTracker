@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSMutableArray *finishedLines;
 
 @property (nonatomic, weak) BNRLine *selectedLine;
+@property (nonatomic, weak) BNRLine *selectedLineForDragging;
 
 @end
 
@@ -89,12 +90,21 @@
         [[UIColor greenColor] set];
         [self strokeLine:self.selectedLine];
     }
+    
+    if (self.selectedLineForDragging) {
+        [[UIColor greenColor] set];
+        [self strokeLine:self.selectedLineForDragging];
+    }
 
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"%@", NSStringFromSelector(_cmd));
+    
+    //silver challenge chapter 13
+    self.selectedLine = nil;
+    [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
     
     for (UITouch *t in touches) {
         CGPoint location = [t locationInView:self];
@@ -226,13 +236,13 @@
 {
     if (gr.state == UIGestureRecognizerStateBegan) {
         CGPoint point = [gr locationInView:self];
-        self.selectedLine = [self lineAtPoint:point];
+        self.selectedLineForDragging = [self lineAtPoint:point];
         
         if (self.selectedLine) {
             [self.linesInProgress removeAllObjects];
         }
     } else if (gr.state == UIGestureRecognizerStateEnded) {
-        self.selectedLine = nil;
+        self.selectedLineForDragging = nil;
     }
     [self setNeedsDisplay];
 }
@@ -240,7 +250,7 @@
 - (void)moveLine:(UIPanGestureRecognizer *)gr
 {
     // If we have not selected a line, we do not do anything here
-    if (!self.selectedLine) {
+    if (!self.selectedLineForDragging) {
         return;
     }
     
@@ -249,16 +259,16 @@
         //How far has the pan moved
         CGPoint translation = [gr translationInView:self];
         
-        CGPoint begin = self.selectedLine.begin;
-        CGPoint end = self.selectedLine.end;
+        CGPoint begin = self.selectedLineForDragging.begin;
+        CGPoint end = self.selectedLineForDragging.end;
         begin.x += translation.x;
         begin.y += translation.y;
         end.x += translation.x;
         end.y += translation.y;
         
         // Set the new beginning and end points of the line
-        self.selectedLine.begin = begin;
-        self.selectedLine.end = end;
+        self.selectedLineForDragging.begin = begin;
+        self.selectedLineForDragging.end = end;
         
         [self setNeedsDisplay];
         
